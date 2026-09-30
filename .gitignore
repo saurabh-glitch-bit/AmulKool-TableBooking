@@ -4,3 +4,6 @@ dist-ssr
 *.local
 .vscode
 .idea
+*.mp4
+*.pdf
+.DS_Store
