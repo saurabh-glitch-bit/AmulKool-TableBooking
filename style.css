@@ -418,6 +418,10 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #fdf9f3;
+  background-image: url('./ezgif-79682e0a1532d24d-jpg/ezgif-frame-001.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #sequence-canvas {

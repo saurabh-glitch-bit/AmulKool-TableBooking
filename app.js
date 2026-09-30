@@ -12,11 +12,22 @@
  * 9. Quick order modal and scroll reveal observer.
  */
 
+// Dynamic Base Folder Resolver
+function getBaseFolder() {
+  let path = window.location.pathname;
+  if (path.endsWith('.html')) {
+    path = path.substring(0, path.lastIndexOf('/') + 1);
+  } else if (!path.endsWith('/')) {
+    path = path + '/';
+  }
+  return window.location.origin + path;
+}
+
 // Configuration
 const CONFIG = {
   totalFrames: 240,
   introRatio: 0.95, // Automatically complete 95% (Frame 228) before user scrolls
-  framePath: (index) => `./ezgif-79682e0a1532d24d-jpg/ezgif-frame-${String(index).padStart(3, '0')}.jpg`,
+  framePath: (index) => `${getBaseFolder()}ezgif-79682e0a1532d24d-jpg/ezgif-frame-${String(index).padStart(3, '0')}.jpg`,
   lerpFactor: 0.32, // Smooth, responsive coefficient
 };
 
@@ -89,7 +100,7 @@ const elements = {
   bookingPreviewText: document.getElementById('booking-preview-text'),
 };
 
-const ctx = elements.canvas.getContext('2d', { alpha: false });
+const ctx = elements.canvas.getContext('2d');
 
 /* ==========================================================================
    1. IMAGE PRELOADER ENGINE
@@ -116,6 +127,12 @@ function preloadImages() {
         }
         if (elements.loaderStatus) {
           elements.loaderStatus.textContent = `Preloading Frame ${state.loadedCount} of ${CONFIG.totalFrames}...`;
+        }
+
+        // Render Frame 1 immediately so bottle appears instantly!
+        if (i === 1) {
+          resizeCanvas();
+          renderFrame(1);
         }
 
         resolve(img);
@@ -192,15 +209,15 @@ function resizeCanvas() {
   elements.canvas.style.width = `${width}px`;
   elements.canvas.style.height = `${height}px`;
 
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   renderFrame(Math.round(state.currentFrame));
 }
 
 function renderFrame(frameIndex) {
-  if (!state.isLoaded || !elements.canvas) return;
+  if (!elements.canvas) return;
   
   const clampedIndex = Math.max(1, Math.min(CONFIG.totalFrames, Math.round(frameIndex)));
-  const img = state.images[clampedIndex];
+  const img = state.images[clampedIndex] || state.images[1];
   if (!img || !img.complete || img.naturalWidth === 0) return;
 
   const canvasWidth = window.innerWidth;
