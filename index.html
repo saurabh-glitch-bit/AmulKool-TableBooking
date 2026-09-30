@@ -270,7 +270,7 @@
           </p>
 
           <!-- Hero Call-To-Action -->
-          <div class="mt-5 flex items-center justify-center gap-3.5 hero-cta-row">
+          <div class="mt-5 flex items-center justify-center gap-3.5 hero-cta-row flex-wrap">
             <a href="#menu" class="font-body-md text-sm font-semibold text-cream-surface bg-deep-rose px-6 py-2.5 rounded-full hover:bg-ink-black transition-all duration-300 shadow-md inline-flex items-center gap-2 cursor-pointer">
               <span>Explore Menu</span>
               <span class="material-symbols-outlined text-sm">restaurant_menu</span>
@@ -279,6 +279,10 @@
               <span>Book Table</span>
               <span class="material-symbols-outlined text-sm">calendar_month</span>
             </a>
+            <button id="open-video-btn" class="font-body-md text-sm font-semibold text-deep-rose bg-soft-petal/40 hover:bg-soft-petal/70 backdrop-blur-md border border-deep-rose/25 px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm inline-flex items-center gap-2 cursor-pointer" title="Watch Reveal Animation Video">
+              <span class="material-symbols-outlined text-base">play_circle</span>
+              <span>Watch Video</span>
+            </button>
           </div>
         </div>
       </div>
@@ -798,6 +802,24 @@
       <button class="btn btn-primary btn-block" id="confirm-order-btn">
         <i class="fa-solid fa-bag-shopping"></i> Proceed to Quick Checkout
       </button>
+    </div>
+  </div>
+
+  <!-- Product Reveal Animation Video Modal -->
+  <div class="modal-backdrop" id="video-modal">
+    <div class="modal-dialog glass-card" style="max-width: 720px; width: 92%; padding: 24px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(99,0,30,0.1); padding-bottom: 12px; margin-bottom: 16px;">
+        <h3 style="font-family: 'EB Garamond', serif; font-size: 1.4rem; font-weight: 700; color: #63001E; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: #63001E;">smart_display</span>
+          <span>Amul Kool Rose — Reveal Animation</span>
+        </h3>
+        <button class="modal-close-btn" id="close-video-modal-btn" aria-label="Close Video Modal" style="position: static;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+        <video id="reveal-video-player" src="reveal-video.mp4" controls playsinline style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
     </div>
   </div>
 
